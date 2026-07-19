@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Baby Shower de Miranda</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FBF6EA;
+    --cream-2:#F6EEDD;
+    --honey:#E3A63C;
+    --honey-dark:#B87F1E;
+    --brown:#4A3524;
+    --brown-soft:#6E5640;
+    --sage:#8A9A6E;
+    --sage-dark:#5F7048;
+    --white:#FFFFFF;
+    --petal-shadow: rgba(74,53,36,0.08);
+  }
+  *{box-sizing:border-box;}
+  html{ background: linear-gradient(to bottom, #FDFAF0 0%, var(--cream) 100%); }
+  body{
+    margin:0;
+    min-height:100dvh;
+    font-family:'Quicksand', sans-serif;
+    color:var(--brown);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:16px;
+    position:relative;
+    overflow-x:hidden;
+  }
+  .card{
+    position:relative;
+    z-index:1;
+    width: min(100%, 390px, calc((100dvh - 32px) * 9 / 16));
+    aspect-ratio: 9 / 16;
+    max-height: calc(100dvh - 32px);
+    background: var(--white);
+    border-radius:24px;
+    overflow:hidden;
+    box-shadow: 0 18px 40px var(--petal-shadow);
+    border:1px solid #EFE4CC;
+  }
+  .hero{
+    position:absolute;
+    inset:0;
+    overflow:hidden;
+    background: var(--cream-2);
+  }
+  .hero-media{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:center;
+  }
+  .hero-text{
+    position:absolute;
+    left:0; right:0; top:0;
+    z-index:4;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:18px 16px 0;
+    pointer-events:none;
+  }
+  .hero::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(
+      to bottom,
+      rgba(251,246,234,0.12) 0%,
+      rgba(251,246,234,0.28) 28%,
+      rgba(251,246,234,0.62) 55%,
+      rgba(255,255,255,0.86) 78%,
+      rgba(255,255,255,0.94) 100%
+    );
+    pointer-events:none;
+    z-index:1;
+  }
+  .hero .eyebrow{ text-shadow:0 1px 6px rgba(255,255,255,0.85); }
+  .hero .title{ text-shadow:0 2px 10px rgba(255,255,255,0.75); }
+  .hero .subtitle{ text-shadow:0 1px 6px rgba(255,255,255,0.85); }
+  .content{
+    position:absolute;
+    inset:0;
+    z-index:3;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:0;
+    text-align:center;
+    overflow:hidden;
+  }
+  .content-inner{
+    width:100%;
+    max-width:15.2rem;
+    height:100%;
+    margin:0 auto;
+    padding:26% 0 5.5%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    min-height:0;
+  }
+  .cta-block{
+    margin-top:0.85rem;
+    width:100%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
+  /* Al abrir regalos: scroll de toda la tarjeta, sin barra */
+  .hero:has(.gift-panel.open) .content{
+    overflow-x:hidden;
+    overflow-y:auto;
+    -webkit-overflow-scrolling:touch;
+    overscroll-behavior:contain;
+    touch-action:pan-y;
+    scrollbar-width:none;
+    -ms-overflow-style:none;
+  }
+  .hero:has(.gift-panel.open) .content::-webkit-scrollbar{
+    display:none;
+    width:0;
+    height:0;
+  }
+  .hero:has(.gift-panel.open) .content-inner{
+    height:auto;
+    min-height:100%;
+    padding:22% 0 8%;
+  }
+  .eyebrow{
+    font-family:'Quicksand', sans-serif;
+    font-size:15px;
+    font-weight:400;
+    letter-spacing:normal;
+    text-transform:none;
+    color:var(--brown-soft);
+    line-height:1.55;
+    margin:0;
+    text-align:center;
+    white-space:nowrap;
+    width:100%;
+  }
+  .title{
+    font-family:'Dancing Script', cursive;
+    font-weight:700;
+    font-size:clamp(48px, 13vw, 62px);
+    color:var(--honey-dark);
+    line-height:1;
+    margin:0.35em 0 0;
+  }
+  .title-second{
+    font-family:'Dancing Script', cursive;
+    font-weight:700;
+    font-size:clamp(48px, 13vw, 62px);
+    color:var(--honey-dark);
+    line-height:1;
+    margin:0;
+    text-shadow:0 2px 10px rgba(255,255,255,0.75);
+  }
+  .subtitle{
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    font-size:clamp(16px, 4.2vw, 19px);
+    color:var(--brown-soft);
+    margin:0.15em 0 0;
+  }
+  .divider{
+    display:none;
+  }
+  .message{
+    font-size:15px;
+    line-height:1.55;
+    color:var(--brown-soft);
+    margin:9.3em 0 0;
+    max-width:16.5rem;
+    text-align:center;
+  }
+  .message-more{
+    display:block;
+    margin-top:1.55em;
+  }
+  .details{
+    background: rgba(246,238,221,0.92);
+    border-radius:12px;
+    padding:8px 12px;
+    margin:auto 0 0;
+    width:100%;
+    text-align:center;
+  }
+  .details .row{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:0;
+    padding:5px 0;
+  }
+  .details .row + .row{
+    border-top:1px dashed #E3D3AE;
+  }
+  .icon-dot{
+    display:none;
+  }
+  .details .label{
+    font-size:9px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    color:var(--sage-dark);
+    font-weight:600;
+    margin:0;
+  }
+  .details .value{
+    font-size:13px;
+    font-weight:600;
+    color:var(--brown);
+    line-height:1.25;
+    max-width:11em;
+  }
+  button.gift-btn{
+    font-family:'Quicksand', sans-serif;
+    font-weight:700;
+    font-size:14px;
+    line-height:1.25;
+    color:white;
+    background: linear-gradient(180deg, var(--honey), var(--honey-dark));
+    border:none;
+    border-radius:999px;
+    padding:12px 26px;
+    cursor:pointer;
+    box-shadow:0 8px 18px rgba(184,127,30,0.35);
+    transition: transform .15s ease, box-shadow .15s ease;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+  }
+  button.gift-btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 12px 22px rgba(184,127,30,0.42);
+  }
+  button.gift-btn:active{ transform:translateY(0); }
+
+  .gift-panel{
+    max-height:0;
+    overflow:hidden;
+    transition: max-height .45s ease, opacity .35s ease, margin .35s ease;
+    opacity:0;
+    text-align:left;
+    margin-top:0;
+    width:100%;
+  }
+  .gift-panel.open{
+    max-height:5000px;
+    opacity:1;
+    margin-top:14px;
+    overflow:visible;
+  }
+  .gift-panel h3{
+    font-family:'Cormorant Garamond', serif;
+    font-size:18px;
+    font-style:italic;
+    color:var(--honey-dark);
+    text-align:center;
+    margin:0 0 14px;
+    line-height:1.25;
+  }
+  .honeycomb{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+  }
+  .gift-item{
+    background:var(--cream-2);
+    border:1px solid #EEDFB9;
+    border-radius:14px;
+    padding:12px 10px;
+    font-size:13px;
+    text-align:center;
+    color:var(--brown-soft);
+    font-weight:600;
+    line-height:1.3;
+  }
+  .footer-note{
+    margin-top:auto;
+    padding-top:1rem;
+    font-size:11px;
+    color:#A8987C;
+    font-style:italic;
+    white-space:nowrap;
+  }
+  a.gift-item{
+    text-decoration:none;
+    color:inherit;
+    display:block;
+    transition: transform .15s ease, border-color .15s ease, box-shadow .15s ease;
+  }
+  a.gift-item:hover{
+    transform:translateY(-2px);
+    border-color:var(--honey);
+    box-shadow:0 6px 14px var(--petal-shadow);
+  }
+  a.gift-item small{
+    display:block;
+    margin-top:4px;
+    font-size:11px;
+    font-weight:500;
+    color:var(--honey-dark);
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .gift-btn, a.gift-item{ transition:none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <div class="hero">
+    <video class="hero-media" src="assets/video-hero.mp4" autoplay muted loop playsinline poster="assets/nuevo-hero.png" aria-label="Campo de margaritas y abejitas para el baby shower de Miranda"></video>
+    <div class="hero-text">
+      <p class="eyebrow">Está por llegar una pequeña abejita</p>
+      <h1 class="title">Miranda</h1>
+      <p class="title-second">Isabel</p>
+      <p class="subtitle">Baby Shower</p>
+    </div>
+
+    <div class="content">
+      <div class="content-inner">
+        <p class="message">
+          Con mucho cariño<br>
+          te invitamos a celebrar<br>
+          la dulce espera de Miranda.
+          <span class="message-more">
+            Será una tarde entre flores y miel,<br>
+            con buenos deseos para nuestra pequeña abejita.
+          </span>
+        </p>
+
+        <div class="details">
+          <div class="row">
+            <div><div class="label">Fecha</div><div class="value">Sábado 17 de<br>octubre de 2026</div></div>
+          </div>
+          <div class="row">
+            <div><div class="label">Hora</div><div class="value">18:00 hrs</div></div>
+          </div>
+          <div class="row">
+            <div><div class="label">Lugar</div><div class="value">San Eugenio 990</div></div>
+          </div>
+        </div>
+
+        <div class="cta-block">
+        <button class="gift-btn" id="giftBtn" aria-expanded="false" aria-controls="giftPanel">
+          Ver ideas<br>de regalo
+        </button>
+
+        <div class="gift-panel" id="giftPanel">
+          <h3>Ideas para<br>endulzar a Miranda</h3>
+          <div class="honeycomb">
+            <a class="gift-item" href="https://www.carestino.cl/producto/mochila-porta-bebe-9-en-1-almendra/" target="_blank" rel="noopener noreferrer">Mochila porta bebé<small>Carestino</small></a>
+            <a class="gift-item" href="https://www.carestino.cl/producto/silla-de-comer-3-en-1-malta-greige/" target="_blank" rel="noopener noreferrer">Silla para comer<small>Carestino</small></a>
+            <a class="gift-item" href="https://www.carestino.cl/producto/mochila-maternal-roma-gris/" target="_blank" rel="noopener noreferrer">Bolso maternal<small>Carestino</small></a>
+            <a class="gift-item" href="https://www.carestino.cl/producto/set-de-alimentacion-de-silicona-gatito-rosa-malva/" target="_blank" rel="noopener noreferrer">Set de alimentación<small>Carestino</small></a>
+            <a class="gift-item" href="https://form.cl/products/mudador-portatil-caru-crudo?_pos=5&_sid=25d8c098c&_ss=r" target="_blank" rel="noopener noreferrer">Mudador portátil<small>Form</small></a>
+            <a class="gift-item" href="https://form.cl/products/tren-infantil-de-madera-multicolor" target="_blank" rel="noopener noreferrer">Tren de madera<small>Form</small></a>
+            <a class="gift-item" href="https://form.cl/products/figuras-apilables-infantil-de-madera-celeste" target="_blank" rel="noopener noreferrer">Figuras apilables<small>Form</small></a>
+            <a class="gift-item" href="https://form.cl/products/gimnasio-infantil-de-madera-aura-natura-blanco" target="_blank" rel="noopener noreferrer">Gimnasio de madera<small>Form</small></a>
+            <a class="gift-item" href="https://form.cl/products/pack-de-3-canastos-organizadores-amelia-natural" target="_blank" rel="noopener noreferrer">Pack de canastos<small>Form</small></a>
+            <a class="gift-item" href="https://form.cl/products/canasto-lua-s" target="_blank" rel="noopener noreferrer">Canasta Lua<small>Form</small></a>
+            <a class="gift-item" href="https://bebesit.cl/collections/alfombras-antigolpes-bebe/products/alfombra-antigolpes-infantil-plegable-con-bolso-180x120-oso-y-oceano" target="_blank" rel="noopener noreferrer">Alfombra antigolpes<small>Bebesit</small></a>
+            <a class="gift-item" href="https://bebesit.cl/collections/wipes-bewater-bebesit/products/pack-12-toallitas-humedas-bewater-60-unidades-c-u-720-un" target="_blank" rel="noopener noreferrer">Toallas húmedas<small>Bebesit</small></a>
+            <a class="gift-item" href="https://bebesit.cl/collections/sets-alimentacion-bebe/products/set-alimentacion-march-silicona-beige" target="_blank" rel="noopener noreferrer">Set de alimentación 2<small>Bebesit</small></a>
+            <a class="gift-item" href="https://bebesit.cl/collections/sets-pijamas-bodys-pantys-bebe/products/pack-de-8-bodys-manga-corta-0-3m" target="_blank" rel="noopener noreferrer">Pack de bodys<small>Bebesit</small></a>
+            <a class="gift-item" href="https://bebesit.cl/collections/panales-premium-bebaby-bebesit/products/panales-bebaby-premium-by-bebesit-p-80u-hipoalergenico" target="_blank" rel="noopener noreferrer">Pañales<small>Bebesit</small></a>
+            <a class="gift-item" href="https://www.ikea.com/cl/es/p/raskog-carro-blanco-00586789/" target="_blank" rel="noopener noreferrer">Carrito organizador<small>IKEA</small></a>
+            <a class="gift-item" href="https://buffer.cl/products/termo-botella-agua-termica-buffer-acero-inoxidable-1-litro?variant=47803497480427" target="_blank" rel="noopener noreferrer">Botella de agua<small>Buffer</small></a>
+            <a class="gift-item" href="https://www.opaline.cl/cojin-de-lactancia/p?idsku=22571" target="_blank" rel="noopener noreferrer">Cojín de lactancia<small>Opaline</small></a>
+            <a class="gift-item" href="https://bebesit.cl/products/toalla-capucha-oveja-bebesit?variant=45170692882617" target="_blank" rel="noopener noreferrer">Toalla capucha oveja<small>Bebesit</small></a>
+            <a class="gift-item" href="https://infanti.cl/products/toalla-capucha-unicornio?variant=48246643687700" target="_blank" rel="noopener noreferrer">Toalla capucha unicornio<small>Infanti</small></a>
+            <a class="gift-item" href="https://www.opaline.cl/capa-de-bano-unisex/p?idsku=18472" target="_blank" rel="noopener noreferrer">Capa de baño<small>Opaline</small></a>
+            <a class="gift-item" href="https://mamasmateas.com/products/cepillo-de-limpieza-de-silicona" target="_blank" rel="noopener noreferrer">Cepillo limpiador<small>Mamá's Mateas</small></a>
+            <a class="gift-item" href="https://mamasmateas.com/products/set-cepillo-y-peineta" target="_blank" rel="noopener noreferrer">Cepillo y peineta<small>Mamá's Mateas</small></a>
+            <a class="gift-item" href="https://infanti.cl/products/chupete-ultra-soft-0-6-nina-avent?variant=49900684640532" target="_blank" rel="noopener noreferrer">Chupón Ultra Soft<small>Infanti</small></a>
+            <a class="gift-item" href="https://minibee.cl/products/pack-de-2-chupetes-frigg-biscuit-cream-talla-1-0-6-meses-copia?variant=45904655974566" target="_blank" rel="noopener noreferrer">Chupones Frigg<small>Minibee</small></a>
+            <a class="gift-item" href="https://www.opaline.cl/pack-3-tutos-de-nina/p?skuId=18494" target="_blank" rel="noopener noreferrer">Pack 3 tutos<small>Opaline</small></a>
+            <a class="gift-item" href="https://www.opaline.cl/pack-2-tutos-de-nina/p?skuId=18482" target="_blank" rel="noopener noreferrer">Pack 2 tutos<small>Opaline</small></a>
+            <a class="gift-item" href="https://www.opaline.cl/pack-2-tuto-muselina-rosado-bebe-nina/p?skuId=24104" target="_blank" rel="noopener noreferrer">Tutos muselina<small>Opaline</small></a>
+            <a class="gift-item" href="https://www.opaline.cl/pack-set-para-dormir-de-nina/p?skuId=18463" target="_blank" rel="noopener noreferrer">Set para dormir<small>Opaline</small></a>
+            <a class="gift-item" href="https://www.opaline.cl/saco-de-dormir-rosado-de-nina-opaline/p?skuId=22533" target="_blank" rel="noopener noreferrer">Saco de dormir<small>Opaline</small></a>
+            <a class="gift-item" href="https://infanti.cl/products/mudador-express-gris-oscuro" target="_blank" rel="noopener noreferrer">Mudador Express<small>Infanti</small></a>
+          </div>
+        </div>
+        </div>
+
+        <p class="footer-note">Con amor, esperando a Miranda 🐝🌼</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const btn = document.getElementById('giftBtn');
+  const panel = document.getElementById('giftPanel');
+  btn.addEventListener('click', () => {
+    const isOpen = panel.classList.toggle('open');
+    btn.setAttribute('aria-expanded', isOpen);
+    btn.innerHTML = isOpen ? 'Ocultar ideas<br>de regalo' : 'Ver ideas<br>de regalo';
+  });
+</script>
+
+</body>
+</html>
