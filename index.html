@@ -59,16 +59,6 @@
     object-fit:cover;
     object-position:center;
   }
-  .hero-text{
-    position:absolute;
-    left:0; right:0; top:0;
-    z-index:4;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    padding:18px 16px 0;
-    pointer-events:none;
-  }
   .hero::after{
     content:"";
     position:absolute;
@@ -84,9 +74,6 @@
     pointer-events:none;
     z-index:1;
   }
-  .hero .eyebrow{ text-shadow:0 1px 6px rgba(255,255,255,0.85); }
-  .hero .title{ text-shadow:0 2px 10px rgba(255,255,255,0.75); }
-  .hero .subtitle{ text-shadow:0 1px 6px rgba(255,255,255,0.85); }
   .content{
     position:absolute;
     inset:0;
@@ -103,11 +90,18 @@
     max-width:15.2rem;
     height:100%;
     margin:0 auto;
-    padding:26% 0 5.5%;
+    padding:18px 0 5.5%;
     display:flex;
     flex-direction:column;
     align-items:center;
     min-height:0;
+  }
+  .hero-text{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    width:100%;
+    flex-shrink:0;
   }
   .cta-block{
     margin-top:0.85rem;
@@ -116,7 +110,7 @@
     flex-direction:column;
     align-items:center;
   }
-  /* Al abrir regalos: scroll de toda la tarjeta, sin barra */
+  /* Al abrir regalos: scroll de toda la tarjeta (incluye títulos), sin barra */
   .hero:has(.gift-panel.open) .content{
     overflow-x:hidden;
     overflow-y:auto;
@@ -134,7 +128,7 @@
   .hero:has(.gift-panel.open) .content-inner{
     height:auto;
     min-height:100%;
-    padding:22% 0 8%;
+    padding:18px 0 8%;
   }
   .eyebrow{
     font-family:'Quicksand', sans-serif;
@@ -148,6 +142,7 @@
     text-align:center;
     white-space:nowrap;
     width:100%;
+    text-shadow:0 1px 6px rgba(255,255,255,0.85);
   }
   .title{
     font-family:'Dancing Script', cursive;
@@ -156,6 +151,7 @@
     color:var(--honey-dark);
     line-height:1;
     margin:0.35em 0 0;
+    text-shadow:0 2px 10px rgba(255,255,255,0.75);
   }
   .title-second{
     font-family:'Dancing Script', cursive;
@@ -172,6 +168,7 @@
     font-size:clamp(16px, 4.2vw, 19px);
     color:var(--brown-soft);
     margin:0.15em 0 0;
+    text-shadow:0 1px 6px rgba(255,255,255,0.85);
   }
   .divider{
     display:none;
@@ -180,7 +177,7 @@
     font-size:15px;
     line-height:1.55;
     color:var(--brown-soft);
-    margin:9.3em 0 0;
+    margin:2.2em 0 0;
     max-width:16.5rem;
     text-align:center;
   }
@@ -325,15 +322,15 @@
 <div class="card">
   <div class="hero">
     <video class="hero-media" src="assets/video-hero.mp4" autoplay muted loop playsinline poster="assets/nuevo-hero.png" aria-label="Campo de margaritas y abejitas para el baby shower de Miranda"></video>
-    <div class="hero-text">
-      <p class="eyebrow">Está por llegar una pequeña abejita</p>
-      <h1 class="title">Miranda</h1>
-      <p class="title-second">Isabel</p>
-      <p class="subtitle">Baby Shower</p>
-    </div>
 
     <div class="content">
       <div class="content-inner">
+        <div class="hero-text">
+          <p class="eyebrow">Está por llegar una pequeña abejita</p>
+          <h1 class="title">Miranda</h1>
+          <p class="title-second">Isabel</p>
+          <p class="subtitle">Baby Shower</p>
+        </div>
         <p class="message">
           Con mucho cariño<br>
           te invitamos a celebrar<br>
@@ -368,7 +365,6 @@
             <a class="gift-item" href="https://www.carestino.cl/producto/silla-de-comer-3-en-1-malta-greige/" target="_blank" rel="noopener noreferrer">Silla para comer<small>Carestino</small></a>
             <a class="gift-item" href="https://www.carestino.cl/producto/mochila-maternal-roma-gris/" target="_blank" rel="noopener noreferrer">Bolso maternal<small>Carestino</small></a>
             <a class="gift-item" href="https://www.carestino.cl/producto/set-de-alimentacion-de-silicona-gatito-rosa-malva/" target="_blank" rel="noopener noreferrer">Set de alimentación<small>Carestino</small></a>
-            <a class="gift-item" href="https://form.cl/products/mudador-portatil-caru-crudo?_pos=5&_sid=25d8c098c&_ss=r" target="_blank" rel="noopener noreferrer">Mudador portátil<small>Form</small></a>
             <a class="gift-item" href="https://form.cl/products/tren-infantil-de-madera-multicolor" target="_blank" rel="noopener noreferrer">Tren de madera<small>Form</small></a>
             <a class="gift-item" href="https://form.cl/products/figuras-apilables-infantil-de-madera-celeste" target="_blank" rel="noopener noreferrer">Figuras apilables<small>Form</small></a>
             <a class="gift-item" href="https://form.cl/products/gimnasio-infantil-de-madera-aura-natura-blanco" target="_blank" rel="noopener noreferrer">Gimnasio de madera<small>Form</small></a>
@@ -387,8 +383,6 @@
             <a class="gift-item" href="https://www.opaline.cl/capa-de-bano-unisex/p?idsku=18472" target="_blank" rel="noopener noreferrer">Capa de baño<small>Opaline</small></a>
             <a class="gift-item" href="https://mamasmateas.com/products/cepillo-de-limpieza-de-silicona" target="_blank" rel="noopener noreferrer">Cepillo limpiador<small>Mamá's Mateas</small></a>
             <a class="gift-item" href="https://mamasmateas.com/products/set-cepillo-y-peineta" target="_blank" rel="noopener noreferrer">Cepillo y peineta<small>Mamá's Mateas</small></a>
-            <a class="gift-item" href="https://infanti.cl/products/chupete-ultra-soft-0-6-nina-avent?variant=49900684640532" target="_blank" rel="noopener noreferrer">Chupón Ultra Soft<small>Infanti</small></a>
-            <a class="gift-item" href="https://minibee.cl/products/pack-de-2-chupetes-frigg-biscuit-cream-talla-1-0-6-meses-copia?variant=45904655974566" target="_blank" rel="noopener noreferrer">Chupones Frigg<small>Minibee</small></a>
             <a class="gift-item" href="https://www.opaline.cl/pack-3-tutos-de-nina/p?skuId=18494" target="_blank" rel="noopener noreferrer">Pack 3 tutos<small>Opaline</small></a>
             <a class="gift-item" href="https://www.opaline.cl/pack-2-tutos-de-nina/p?skuId=18482" target="_blank" rel="noopener noreferrer">Pack 2 tutos<small>Opaline</small></a>
             <a class="gift-item" href="https://www.opaline.cl/pack-2-tuto-muselina-rosado-bebe-nina/p?skuId=24104" target="_blank" rel="noopener noreferrer">Tutos muselina<small>Opaline</small></a>
