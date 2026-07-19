@@ -278,12 +278,150 @@
     background:var(--cream-2);
     border:1px solid #EEDFB9;
     border-radius:14px;
-    padding:12px 10px;
+    padding:10px 8px 8px;
     font-size:13px;
     text-align:center;
     color:var(--brown-soft);
     font-weight:600;
     line-height:1.3;
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    transition: transform .15s ease, border-color .15s ease, box-shadow .15s ease, opacity .2s ease;
+  }
+  .gift-item.claimed{
+    opacity:0.72;
+    background:#F3EBDA;
+    border-color:#E2D3B0;
+  }
+  .gift-link{
+    text-decoration:none;
+    color:inherit;
+    display:block;
+  }
+  .gift-link small{
+    display:block;
+    margin-top:4px;
+    font-size:11px;
+    font-weight:500;
+    color:var(--honey-dark);
+  }
+  .gift-actions{
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+    margin-top:auto;
+  }
+  .gift-claim, .gift-view, .gift-release{
+    font-family:'Quicksand', sans-serif;
+    font-size:11px;
+    font-weight:700;
+    border:none;
+    border-radius:999px;
+    padding:7px 8px;
+    cursor:pointer;
+    line-height:1.2;
+  }
+  .gift-claim{
+    color:white;
+    background:linear-gradient(180deg, var(--honey), var(--honey-dark));
+  }
+  .gift-view{
+    color:var(--brown-soft);
+    background:transparent;
+    border:1px solid #E3D3AE;
+    display:block;
+    text-decoration:none;
+    text-align:center;
+    box-sizing:border-box;
+  }
+  .gift-release{
+    color:var(--sage-dark);
+    background:transparent;
+    border:1px dashed #C9B896;
+  }
+  .gift-status{
+    margin:0;
+    font-size:10px;
+    font-weight:600;
+    color:var(--sage-dark);
+    line-height:1.25;
+  }
+  .gift-item.open-ended .gift-status{
+    color:var(--honey-dark);
+  }
+  .gift-note{
+    margin:0 0 12px;
+    font-size:11px;
+    text-align:center;
+    color:var(--brown-soft);
+    line-height:1.35;
+  }
+  .modal{
+    position:fixed;
+    inset:0;
+    z-index:50;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    background:rgba(74,53,36,0.35);
+  }
+  .modal.open{ display:flex; }
+  .modal-card{
+    width:min(100%, 320px);
+    background:var(--white);
+    border-radius:18px;
+    border:1px solid #EFE4CC;
+    box-shadow:0 18px 40px var(--petal-shadow);
+    padding:20px 18px;
+    text-align:center;
+  }
+  .modal-card h4{
+    margin:0 0 8px;
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    font-size:20px;
+    color:var(--honey-dark);
+  }
+  .modal-card p{
+    margin:0 0 14px;
+    font-size:13px;
+    color:var(--brown-soft);
+    line-height:1.4;
+  }
+  .modal-card input{
+    width:100%;
+    border:1px solid #E3D3AE;
+    border-radius:12px;
+    padding:10px 12px;
+    font-family:'Quicksand', sans-serif;
+    font-size:14px;
+    color:var(--brown);
+    margin-bottom:12px;
+    background:var(--cream);
+  }
+  .modal-actions{
+    display:flex;
+    gap:8px;
+  }
+  .modal-actions button{
+    flex:1;
+    font-family:'Quicksand', sans-serif;
+    font-weight:700;
+    font-size:13px;
+    border:none;
+    border-radius:999px;
+    padding:11px 10px;
+    cursor:pointer;
+  }
+  .modal-cancel{
+    background:#F1E7D2;
+    color:var(--brown-soft);
+  }
+  .modal-confirm{
+    background:linear-gradient(180deg, var(--honey), var(--honey-dark));
+    color:white;
   }
   .footer-note{
     margin-top:auto;
@@ -293,27 +431,9 @@
     font-style:italic;
     white-space:nowrap;
   }
-  a.gift-item{
-    text-decoration:none;
-    color:inherit;
-    display:block;
-    transition: transform .15s ease, border-color .15s ease, box-shadow .15s ease;
-  }
-  a.gift-item:hover{
-    transform:translateY(-2px);
-    border-color:var(--honey);
-    box-shadow:0 6px 14px var(--petal-shadow);
-  }
-  a.gift-item small{
-    display:block;
-    margin-top:4px;
-    font-size:11px;
-    font-weight:500;
-    color:var(--honey-dark);
-  }
 
   @media (prefers-reduced-motion: reduce){
-    .gift-btn, a.gift-item{ transition:none; }
+    .gift-btn, .gift-item{ transition:none; }
   }
 </style>
 </head>
@@ -360,35 +480,122 @@
 
         <div class="gift-panel" id="giftPanel">
           <h3>Ideas para<br>endulzar a Miranda</h3>
-          <div class="honeycomb">
-            <a class="gift-item" href="https://www.cruzverde.cl/panal-super-premium-p-x-40/560352.html" target="_blank" rel="noopener noreferrer">Pañales Super Premium P<small>Cruz Verde</small></a>
-            <a class="gift-item" href="https://www.opaline.cl/pack-2-tutos-de-nina/p?skuId=18482" target="_blank" rel="noopener noreferrer">Pack 2 tutos<small>Opaline</small></a>
-            <a class="gift-item" href="https://www.opaline.cl/capa-de-bano-unisex/p?idsku=18472" target="_blank" rel="noopener noreferrer">Capa de baño<small>Opaline</small></a>
-            <a class="gift-item" href="https://form.cl/products/tren-infantil-de-madera-multicolor" target="_blank" rel="noopener noreferrer">Tren de madera<small>Form</small></a>
-            <a class="gift-item" href="https://www.opaline.cl/pack-3-tutos-de-nina/p?skuId=18494" target="_blank" rel="noopener noreferrer">Pack 3 tutos<small>Opaline</small></a>
-            <a class="gift-item" href="https://www.opaline.cl/pack-2-tuto-muselina-rosado-bebe-nina/p?skuId=24104" target="_blank" rel="noopener noreferrer">Tutos muselina<small>Opaline</small></a>
-            <a class="gift-item" href="https://mamasmateas.com/products/set-cepillo-y-peineta" target="_blank" rel="noopener noreferrer">Cepillo y peineta<small>Mamá's Mateas</small></a>
-            <a class="gift-item" href="https://infanti.cl/products/toalla-capucha-unicornio?variant=48246643687700" target="_blank" rel="noopener noreferrer">Toalla capucha unicornio<small>Infanti</small></a>
-            <a class="gift-item" href="https://bebesit.cl/collections/sets-pijamas-bodys-pantys-bebe/products/pack-de-8-bodys-manga-corta-0-3m" target="_blank" rel="noopener noreferrer">Pack de bodys<small>Bebesit</small></a>
-            <a class="gift-item" href="https://bebesit.cl/products/toalla-capucha-oveja-bebesit?variant=45170692882617" target="_blank" rel="noopener noreferrer">Toalla capucha oveja<small>Bebesit</small></a>
-            <a class="gift-item" href="https://bebesit.cl/collections/alfombras-antigolpes-bebe/products/alfombra-antigolpes-infantil-plegable-con-bolso-180x120-oso-y-oceano" target="_blank" rel="noopener noreferrer">Alfombra antigolpes<small>Bebesit</small></a>
-            <a class="gift-item" href="https://www.opaline.cl/saco-de-dormir-rosado-de-nina-opaline/p?skuId=22533" target="_blank" rel="noopener noreferrer">Saco de dormir<small>Opaline</small></a>
-            <a class="gift-item" href="https://form.cl/products/figuras-apilables-infantil-de-madera-celeste" target="_blank" rel="noopener noreferrer">Figuras apilables<small>Form</small></a>
-            <a class="gift-item" href="https://bebesit.cl/collections/sets-alimentacion-bebe/products/set-alimentacion-march-silicona-beige" target="_blank" rel="noopener noreferrer">Set de alimentación 2<small>Bebesit</small></a>
-            <a class="gift-item" href="https://buffer.cl/products/termo-botella-agua-termica-buffer-acero-inoxidable-1-litro?variant=47803497480427" target="_blank" rel="noopener noreferrer">Botella de agua<small>Buffer</small></a>
-            <a class="gift-item" href="https://mamasmateas.com/products/cepillo-de-limpieza-de-silicona" target="_blank" rel="noopener noreferrer">Cepillo limpiador<small>Mamá's Mateas</small></a>
-            <a class="gift-item" href="https://www.carestino.cl/producto/set-de-alimentacion-de-silicona-gatito-rosa-malva/" target="_blank" rel="noopener noreferrer">Set de alimentación<small>Carestino</small></a>
-            <a class="gift-item" href="https://form.cl/products/canasto-lua-s" target="_blank" rel="noopener noreferrer">Canasta Lua<small>Form</small></a>
-            <a class="gift-item" href="https://infanti.cl/products/mudador-express-gris-oscuro" target="_blank" rel="noopener noreferrer">Mudador Express<small>Infanti</small></a>
-            <a class="gift-item" href="https://bebesit.cl/collections/wipes-bewater-bebesit/products/pack-12-toallitas-humedas-bewater-60-unidades-c-u-720-un" target="_blank" rel="noopener noreferrer">Toallas húmedas<small>Bebesit</small></a>
-            <a class="gift-item" href="https://www.opaline.cl/pack-set-para-dormir-de-nina/p?skuId=18463" target="_blank" rel="noopener noreferrer">Set para dormir<small>Opaline</small></a>
-            <a class="gift-item" href="https://www.opaline.cl/cojin-de-lactancia/p?idsku=22571" target="_blank" rel="noopener noreferrer">Cojín de lactancia<small>Opaline</small></a>
-            <a class="gift-item" href="https://form.cl/products/pack-de-3-canastos-organizadores-amelia-natural" target="_blank" rel="noopener noreferrer">Pack de canastos<small>Form</small></a>
-            <a class="gift-item" href="https://www.ikea.com/cl/es/p/raskog-carro-blanco-00586789/" target="_blank" rel="noopener noreferrer">Carrito organizador<small>IKEA</small></a>
-            <a class="gift-item" href="https://www.carestino.cl/producto/mochila-maternal-roma-gris/" target="_blank" rel="noopener noreferrer">Bolso maternal<small>Carestino</small></a>
-            <a class="gift-item" href="https://form.cl/products/gimnasio-infantil-de-madera-aura-natura-blanco" target="_blank" rel="noopener noreferrer">Gimnasio de madera<small>Form</small></a>
-            <a class="gift-item" href="https://www.carestino.cl/producto/mochila-porta-bebe-9-en-1-almendra/" target="_blank" rel="noopener noreferrer">Mochila porta bebé<small>Carestino</small></a>
-            <a class="gift-item" href="https://www.carestino.cl/producto/silla-de-comer-3-en-1-malta-greige/" target="_blank" rel="noopener noreferrer">Silla para comer<small>Carestino</small></a>
+          <p class="gift-note">Reserva el regalo que vas a llevar.<br>Pañales y toallitas quedan siempre disponibles.</p>
+          <div class="honeycomb" id="giftList">
+            <article class="gift-item open-ended" data-gift-id="panales-super-premium" data-lockable="false">
+              <a class="gift-link" href="https://www.cruzverde.cl/panal-super-premium-p-x-40/560352.html" target="_blank" rel="noopener noreferrer">Pañales Super Premium P<small>Cruz Verde</small></a>
+              <p class="gift-status">Siempre disponible</p>
+              <div class="gift-actions"><a class="gift-view" href="https://www.cruzverde.cl/panal-super-premium-p-x-40/560352.html" target="_blank" rel="noopener noreferrer">Ver producto</a></div>
+            </article>
+            <article class="gift-item" data-gift-id="pack-2-tutos" data-lockable="true">
+              <a class="gift-link" href="https://www.opaline.cl/pack-2-tutos-de-nina/p?skuId=18482" target="_blank" rel="noopener noreferrer">Pack 2 tutos<small>Opaline</small></a>
+              <div class="gift-actions"><button type="button" class="gift-claim">Me lo llevo</button><a class="gift-view" href="https://www.opaline.cl/pack-2-tutos-de-nina/p?skuId=18482" target="_blank" rel="noopener noreferrer">Ver producto</a></div>
+            </article>
+            <article class="gift-item" data-gift-id="capa-bano" data-lockable="true">
+              <a class="gift-link" href="https://www.opaline.cl/capa-de-bano-unisex/p?idsku=18472" target="_blank" rel="noopener noreferrer">Capa de baño<small>Opaline</small></a>
+              <div class="gift-actions"><button type="button" class="gift-claim">Me lo llevo</button><a class="gift-view" href="https://www.opaline.cl/capa-de-bano-unisex/p?idsku=18472" target="_blank" rel="noopener noreferrer">Ver producto</a></div>
+            </article>
+            <article class="gift-item" data-gift-id="tren-madera" data-lockable="true">
+              <a class="gift-link" href="https://form.cl/products/tren-infantil-de-madera-multicolor" target="_blank" rel="noopener noreferrer">Tren de madera<small>Form</small></a>
+              <div class="gift-actions"><button type="button" class="gift-claim">Me lo llevo</button><a class="gift-view" href="https://form.cl/products/tren-infantil-de-madera-multicolor" target="_blank" rel="noopener noreferrer">Ver producto</a></div>
+            </article>
+            <article class="gift-item" data-gift-id="pack-3-tutos" data-lockable="true">
+              <a class="gift-link" href="https://www.opaline.cl/pack-3-tutos-de-nina/p?skuId=18494" target="_blank" rel="noopener noreferrer">Pack 3 tutos<small>Opaline</small></a>
+              <div class="gift-actions"><button type="button" class="gift-claim">Me lo llevo</button><a class="gift-view" href="https://www.opaline.cl/pack-3-tutos-de-nina/p?skuId=18494" target="_blank" rel="noopener noreferrer">Ver producto</a></div>
+            </article>
+            <article class="gift-item" data-gift-id="tutos-muselina" data-lockable="true">
+              <a class="gift-link" href="https://www.opaline.cl/pack-2-tuto-muselina-rosado-bebe-nina/p?skuId=24104" target="_blank" rel="noopener noreferrer">Tutos muselina<small>Opaline</small></a>
+              <div class="gift-actions"><button type="button" class="gift-claim">Me lo llevo</button><a class="gift-view" href="https://www.opaline.cl/pack-2-tuto-muselina-rosado-bebe-nina/p?skuId=24104" target="_blank" rel="noopener noreferrer">Ver producto</a></div>
+            </article>
+            <article class="gift-item" data-gift-id="cepillo-peineta" data-lockable="true">
+              <a class="gift-link" href="https://mamasmateas.com/products/set-cepillo-y-peineta" target="_blank" rel="noopener noreferrer">Cepillo y peineta<small>Mamá's Mateas</small></a>
+              <div class="gift-actions"><button type="button" class="gift-claim">Me lo llevo</button><a class="gift-view" href="https://mamasmateas.com/products/set-cepillo-y-peineta" target="_blank" rel="noopener noreferrer">Ver producto</a></div>
+            </article>
+            <article class="gift-item" data-gift-id="toalla-unicornio" data-lockable="true">
+              <a class="gift-link" href="https://infanti.cl/products/toalla-capucha-unicornio?variant=48246643687700" target="_blank" rel="noopener noreferrer">Toalla capucha unicornio<small>Infanti</small></a>
+              <div class="gift-actions"><button type="button" class="gift-claim">Me lo llevo</button><a class="gift-view" href="https://infanti.cl/products/toalla-capucha-unicornio?variant=48246643687700" target="_blank" rel="noopener noreferrer">Ver producto</a></div>
+            </article>
+            <article class="gift-item" data-gift-id="pack-bodys" data-lockable="true">
+              <a class="gift-link" href="https://bebesit.cl/collections/sets-pijamas-bodys-pantys-bebe/products/pack-de-8-bodys-manga-corta-0-3m" target="_blank" rel="noopener noreferrer">Pack de bodys<small>Bebesit</small></a>
+              <div class="gift-actions"><button type="button" class="gift-claim">Me lo llevo</button><a class="gift-view" href="https://bebesit.cl/collections/sets-pijamas-bodys-pantys-bebe/products/pack-de-8-bodys-manga-corta-0-3m" target="_blank" rel="noopener noreferrer">Ver producto</a></div>
+            </article>
+            <article class="gift-item" data-gift-id="toalla-oveja" data-lockable="true">
+              <a class="gift-link" href="https://bebesit.cl/products/toalla-capucha-oveja-bebesit?variant=45170692882617" target="_blank" rel="noopener noreferrer">Toalla capucha oveja<small>Bebesit</small></a>
+              <div class="gift-actions"><button type="button" class="gift-claim">Me lo llevo</button><a class="gift-view" href="https://bebesit.cl/products/toalla-capucha-oveja-bebesit?variant=45170692882617" target="_blank" rel="noopener noreferrer">Ver producto</a></div>
+            </article>
+            <article class="gift-item" data-gift-id="alfombra-antigolpes" data-lockable="true">
+              <a class="gift-link" href="https://bebesit.cl/collections/alfombras-antigolpes-bebe/products/alfombra-antigolpes-infantil-plegable-con-bolso-180x120-oso-y-oceano" target="_blank" rel="noopener noreferrer">Alfombra antigolpes<small>Bebesit</small></a>
+              <div class="gift-actions"><button type="button" class="gift-claim">Me lo llevo</button><a class="gift-view" href="https://bebesit.cl/collections/alfombras-antigolpes-bebe/products/alfombra-antigolpes-infantil-plegable-con-bolso-180x120-oso-y-oceano" target="_blank" rel="noopener noreferrer">Ver producto</a></div>
+            </article>
+            <article class="gift-item" data-gift-id="saco-dormir" data-lockable="true">
+              <a class="gift-link" href="https://www.opaline.cl/saco-de-dormir-rosado-de-nina-opaline/p?skuId=22533" target="_blank" rel="noopener noreferrer">Saco de dormir<small>Opaline</small></a>
+              <div class="gift-actions"><button type="button" class="gift-claim">Me lo llevo</button><a class="gift-view" href="https://www.opaline.cl/saco-de-dormir-rosado-de-nina-opaline/p?skuId=22533" target="_blank" rel="noopener noreferrer">Ver producto</a></div>
+            </article>
+            <article class="gift-item" data-gift-id="figuras-apilables" data-lockable="true">
+              <a class="gift-link" href="https://form.cl/products/figuras-apilables-infantil-de-madera-celeste" target="_blank" rel="noopener noreferrer">Figuras apilables<small>Form</small></a>
+              <div class="gift-actions"><button type="button" class="gift-claim">Me lo llevo</button><a class="gift-view" href="https://form.cl/products/figuras-apilables-infantil-de-madera-celeste" target="_blank" rel="noopener noreferrer">Ver producto</a></div>
+            </article>
+            <article class="gift-item" data-gift-id="set-alimentacion-2" data-lockable="true">
+              <a class="gift-link" href="https://bebesit.cl/collections/sets-alimentacion-bebe/products/set-alimentacion-march-silicona-beige" target="_blank" rel="noopener noreferrer">Set de alimentación 2<small>Bebesit</small></a>
+              <div class="gift-actions"><button type="button" class="gift-claim">Me lo llevo</button><a class="gift-view" href="https://bebesit.cl/collections/sets-alimentacion-bebe/products/set-alimentacion-march-silicona-beige" target="_blank" rel="noopener noreferrer">Ver producto</a></div>
+            </article>
+            <article class="gift-item" data-gift-id="botella-agua" data-lockable="true">
+              <a class="gift-link" href="https://buffer.cl/products/termo-botella-agua-termica-buffer-acero-inoxidable-1-litro?variant=47803497480427" target="_blank" rel="noopener noreferrer">Botella de agua<small>Buffer</small></a>
+              <div class="gift-actions"><button type="button" class="gift-claim">Me lo llevo</button><a class="gift-view" href="https://buffer.cl/products/termo-botella-agua-termica-buffer-acero-inoxidable-1-litro?variant=47803497480427" target="_blank" rel="noopener noreferrer">Ver producto</a></div>
+            </article>
+            <article class="gift-item" data-gift-id="cepillo-limpiador" data-lockable="true">
+              <a class="gift-link" href="https://mamasmateas.com/products/cepillo-de-limpieza-de-silicona" target="_blank" rel="noopener noreferrer">Cepillo limpiador<small>Mamá's Mateas</small></a>
+              <div class="gift-actions"><button type="button" class="gift-claim">Me lo llevo</button><a class="gift-view" href="https://mamasmateas.com/products/cepillo-de-limpieza-de-silicona" target="_blank" rel="noopener noreferrer">Ver producto</a></div>
+            </article>
+            <article class="gift-item" data-gift-id="set-alimentacion" data-lockable="true">
+              <a class="gift-link" href="https://www.carestino.cl/producto/set-de-alimentacion-de-silicona-gatito-rosa-malva/" target="_blank" rel="noopener noreferrer">Set de alimentación<small>Carestino</small></a>
+              <div class="gift-actions"><button type="button" class="gift-claim">Me lo llevo</button><a class="gift-view" href="https://www.carestino.cl/producto/set-de-alimentacion-de-silicona-gatito-rosa-malva/" target="_blank" rel="noopener noreferrer">Ver producto</a></div>
+            </article>
+            <article class="gift-item" data-gift-id="canasta-lua" data-lockable="true">
+              <a class="gift-link" href="https://form.cl/products/canasto-lua-s" target="_blank" rel="noopener noreferrer">Canasta Lua<small>Form</small></a>
+              <div class="gift-actions"><button type="button" class="gift-claim">Me lo llevo</button><a class="gift-view" href="https://form.cl/products/canasto-lua-s" target="_blank" rel="noopener noreferrer">Ver producto</a></div>
+            </article>
+            <article class="gift-item" data-gift-id="mudador-express" data-lockable="true">
+              <a class="gift-link" href="https://infanti.cl/products/mudador-express-gris-oscuro" target="_blank" rel="noopener noreferrer">Mudador Express<small>Infanti</small></a>
+              <div class="gift-actions"><button type="button" class="gift-claim">Me lo llevo</button><a class="gift-view" href="https://infanti.cl/products/mudador-express-gris-oscuro" target="_blank" rel="noopener noreferrer">Ver producto</a></div>
+            </article>
+            <article class="gift-item open-ended" data-gift-id="toallas-humedas" data-lockable="false">
+              <a class="gift-link" href="https://bebesit.cl/collections/wipes-bewater-bebesit/products/pack-12-toallitas-humedas-bewater-60-unidades-c-u-720-un" target="_blank" rel="noopener noreferrer">Toallas húmedas<small>Bebesit</small></a>
+              <p class="gift-status">Siempre disponible</p>
+              <div class="gift-actions"><a class="gift-view" href="https://bebesit.cl/collections/wipes-bewater-bebesit/products/pack-12-toallitas-humedas-bewater-60-unidades-c-u-720-un" target="_blank" rel="noopener noreferrer">Ver producto</a></div>
+            </article>
+            <article class="gift-item" data-gift-id="set-dormir" data-lockable="true">
+              <a class="gift-link" href="https://www.opaline.cl/pack-set-para-dormir-de-nina/p?skuId=18463" target="_blank" rel="noopener noreferrer">Set para dormir<small>Opaline</small></a>
+              <div class="gift-actions"><button type="button" class="gift-claim">Me lo llevo</button><a class="gift-view" href="https://www.opaline.cl/pack-set-para-dormir-de-nina/p?skuId=18463" target="_blank" rel="noopener noreferrer">Ver producto</a></div>
+            </article>
+            <article class="gift-item" data-gift-id="cojin-lactancia" data-lockable="true">
+              <a class="gift-link" href="https://www.opaline.cl/cojin-de-lactancia/p?idsku=22571" target="_blank" rel="noopener noreferrer">Cojín de lactancia<small>Opaline</small></a>
+              <div class="gift-actions"><button type="button" class="gift-claim">Me lo llevo</button><a class="gift-view" href="https://www.opaline.cl/cojin-de-lactancia/p?idsku=22571" target="_blank" rel="noopener noreferrer">Ver producto</a></div>
+            </article>
+            <article class="gift-item" data-gift-id="pack-canastos" data-lockable="true">
+              <a class="gift-link" href="https://form.cl/products/pack-de-3-canastos-organizadores-amelia-natural" target="_blank" rel="noopener noreferrer">Pack de canastos<small>Form</small></a>
+              <div class="gift-actions"><button type="button" class="gift-claim">Me lo llevo</button><a class="gift-view" href="https://form.cl/products/pack-de-3-canastos-organizadores-amelia-natural" target="_blank" rel="noopener noreferrer">Ver producto</a></div>
+            </article>
+            <article class="gift-item" data-gift-id="carrito-ikea" data-lockable="true">
+              <a class="gift-link" href="https://www.ikea.com/cl/es/p/raskog-carro-blanco-00586789/" target="_blank" rel="noopener noreferrer">Carrito organizador<small>IKEA</small></a>
+              <div class="gift-actions"><button type="button" class="gift-claim">Me lo llevo</button><a class="gift-view" href="https://www.ikea.com/cl/es/p/raskog-carro-blanco-00586789/" target="_blank" rel="noopener noreferrer">Ver producto</a></div>
+            </article>
+            <article class="gift-item" data-gift-id="bolso-maternal" data-lockable="true">
+              <a class="gift-link" href="https://www.carestino.cl/producto/mochila-maternal-roma-gris/" target="_blank" rel="noopener noreferrer">Bolso maternal<small>Carestino</small></a>
+              <div class="gift-actions"><button type="button" class="gift-claim">Me lo llevo</button><a class="gift-view" href="https://www.carestino.cl/producto/mochila-maternal-roma-gris/" target="_blank" rel="noopener noreferrer">Ver producto</a></div>
+            </article>
+            <article class="gift-item" data-gift-id="gimnasio-madera" data-lockable="true">
+              <a class="gift-link" href="https://form.cl/products/gimnasio-infantil-de-madera-aura-natura-blanco" target="_blank" rel="noopener noreferrer">Gimnasio de madera<small>Form</small></a>
+              <div class="gift-actions"><button type="button" class="gift-claim">Me lo llevo</button><a class="gift-view" href="https://form.cl/products/gimnasio-infantil-de-madera-aura-natura-blanco" target="_blank" rel="noopener noreferrer">Ver producto</a></div>
+            </article>
+            <article class="gift-item" data-gift-id="mochila-porta-bebe" data-lockable="true">
+              <a class="gift-link" href="https://www.carestino.cl/producto/mochila-porta-bebe-9-en-1-almendra/" target="_blank" rel="noopener noreferrer">Mochila porta bebé<small>Carestino</small></a>
+              <div class="gift-actions"><button type="button" class="gift-claim">Me lo llevo</button><a class="gift-view" href="https://www.carestino.cl/producto/mochila-porta-bebe-9-en-1-almendra/" target="_blank" rel="noopener noreferrer">Ver producto</a></div>
+            </article>
+            <article class="gift-item" data-gift-id="silla-comer" data-lockable="true">
+              <a class="gift-link" href="https://www.carestino.cl/producto/silla-de-comer-3-en-1-malta-greige/" target="_blank" rel="noopener noreferrer">Silla para comer<small>Carestino</small></a>
+              <div class="gift-actions"><button type="button" class="gift-claim">Me lo llevo</button><a class="gift-view" href="https://www.carestino.cl/producto/silla-de-comer-3-en-1-malta-greige/" target="_blank" rel="noopener noreferrer">Ver producto</a></div>
+            </article>
           </div>
         </div>
         </div>
@@ -399,14 +606,179 @@
   </div>
 </div>
 
+<div class="modal" id="claimModal" aria-hidden="true">
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="claimTitle">
+    <h4 id="claimTitle">Reservar regalo</h4>
+    <p id="claimText">¿Te lo llevas? Escribe tu nombre para reservarlo.</p>
+    <input id="claimName" type="text" maxlength="40" placeholder="Tu nombre" autocomplete="name">
+    <div class="modal-actions">
+      <button type="button" class="modal-cancel" id="claimCancel">Cancelar</button>
+      <button type="button" class="modal-confirm" id="claimConfirm">Confirmar</button>
+    </div>
+  </div>
+</div>
+
 <script>
+  const SUPABASE_URL = 'https://ldbkmextgnttafbwlzgu.supabase.co';
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxkYmttZXh0Z250dGFmYndsemd1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ0OTUyOTYsImV4cCI6MjEwMDA3MTI5Nn0.p1ZrWjMVUVnp1jEUiDXVr3PA-iZEymulgFQhvN_jaYQ';
+  const ADMIN_PIN = 'abejita';
+
   const btn = document.getElementById('giftBtn');
   const panel = document.getElementById('giftPanel');
+  const giftItems = [...document.querySelectorAll('.gift-item[data-lockable="true"]')];
+  const modal = document.getElementById('claimModal');
+  const claimName = document.getElementById('claimName');
+  const claimText = document.getElementById('claimText');
+  let pendingGift = null;
+  let claimsById = {};
+
+  const headers = {
+    apikey: SUPABASE_ANON_KEY,
+    Authorization: 'Bearer ' + SUPABASE_ANON_KEY,
+    'Content-Type': 'application/json',
+    Prefer: 'return=representation'
+  };
+
   btn.addEventListener('click', () => {
     const isOpen = panel.classList.toggle('open');
     btn.setAttribute('aria-expanded', isOpen);
     btn.innerHTML = isOpen ? 'Ocultar ideas<br>de regalo' : 'Ver ideas<br>de regalo';
+    if (isOpen) loadClaims();
   });
+
+  async function loadClaims() {
+    try {
+      const res = await fetch(SUPABASE_URL + '/rest/v1/gift_claims?select=gift_id,guest_name', { headers });
+      if (!res.ok) throw new Error('No se pudo cargar reservas');
+      const rows = await res.json();
+      claimsById = {};
+      rows.forEach((row) => { claimsById[row.gift_id] = row.guest_name || 'Alguien'; });
+      renderClaims();
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  function renderClaims() {
+    giftItems.forEach((item) => {
+      const id = item.dataset.giftId;
+      const claimedBy = claimsById[id];
+      const actions = item.querySelector('.gift-actions');
+      let status = item.querySelector('.gift-status');
+      const url = item.querySelector('.gift-link')?.href;
+
+      if (claimedBy) {
+        item.classList.add('claimed');
+        if (!status) {
+          status = document.createElement('p');
+          status.className = 'gift-status';
+          item.insertBefore(status, actions);
+        }
+        status.hidden = false;
+        status.textContent = 'Reservado por ' + claimedBy;
+        actions.innerHTML =
+          '<a class="gift-view" href="' + url + '" target="_blank" rel="noopener noreferrer">Ver producto</a>' +
+          '<button type="button" class="gift-release" data-gift-id="' + id + '">Liberar</button>';
+      } else {
+        item.classList.remove('claimed');
+        if (status) status.remove();
+        actions.innerHTML =
+          '<button type="button" class="gift-claim">Me lo llevo</button>' +
+          '<a class="gift-view" href="' + url + '" target="_blank" rel="noopener noreferrer">Ver producto</a>';
+      }
+    });
+  }
+
+  document.getElementById('giftList').addEventListener('click', (e) => {
+    const claimBtn = e.target.closest('.gift-claim');
+    const releaseBtn = e.target.closest('.gift-release');
+    if (claimBtn) {
+      const item = claimBtn.closest('.gift-item');
+      openClaimModal(item);
+    }
+    if (releaseBtn) {
+      releaseGift(releaseBtn.dataset.giftId);
+    }
+  });
+
+  function openClaimModal(item) {
+    pendingGift = item;
+    const title = item.querySelector('.gift-link').childNodes[0].textContent.trim();
+    claimText.textContent = '¿Te llevas “' + title + '”? Escribe tu nombre para reservarlo.';
+    claimName.value = '';
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+    claimName.focus();
+  }
+
+  function closeClaimModal() {
+    pendingGift = null;
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+  }
+
+  document.getElementById('claimCancel').addEventListener('click', closeClaimModal);
+  modal.addEventListener('click', (e) => { if (e.target === modal) closeClaimModal(); });
+
+  document.getElementById('claimConfirm').addEventListener('click', async () => {
+    if (!pendingGift) return;
+    const name = claimName.value.trim();
+    if (!name) {
+      claimName.focus();
+      return;
+    }
+    const giftId = pendingGift.dataset.giftId;
+    const confirmBtn = document.getElementById('claimConfirm');
+    confirmBtn.disabled = true;
+    try {
+      const res = await fetch(SUPABASE_URL + '/rest/v1/gift_claims', {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({ gift_id: giftId, guest_name: name })
+      });
+      if (res.status === 409 || res.status === 23505) {
+        alert('Este regalo ya fue reservado. Elige otro :)');
+        await loadClaims();
+        closeClaimModal();
+        return;
+      }
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.message || 'No se pudo reservar');
+      }
+      claimsById[giftId] = name;
+      renderClaims();
+      closeClaimModal();
+    } catch (err) {
+      alert('No se pudo reservar. Revisa la conexión o que la tabla esté creada en Supabase.');
+      console.error(err);
+    } finally {
+      confirmBtn.disabled = false;
+    }
+  });
+
+  async function releaseGift(giftId) {
+    const pin = prompt('Clave para liberar el regalo:');
+    if (pin === null) return;
+    if (pin !== ADMIN_PIN) {
+      alert('Clave incorrecta');
+      return;
+    }
+    try {
+      const res = await fetch(
+        SUPABASE_URL + '/rest/v1/gift_claims?gift_id=eq.' + encodeURIComponent(giftId),
+        { method: 'DELETE', headers }
+      );
+      if (!res.ok) throw new Error('No se pudo liberar');
+      delete claimsById[giftId];
+      renderClaims();
+    } catch (err) {
+      alert('No se pudo liberar el regalo.');
+      console.error(err);
+    }
+  }
+
+  loadClaims();
 </script>
 
 </body>
