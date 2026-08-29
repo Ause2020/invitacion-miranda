@@ -377,6 +377,15 @@
     padding:20px 18px;
     text-align:center;
   }
+  .modal-card.intro-card{
+    width:min(100%, 340px);
+  }
+  .modal-card.intro-card p{
+    margin:0 0 10px;
+  }
+  .modal-card.intro-card p:last-of-type{
+    margin-bottom:16px;
+  }
   .modal-card h4{
     margin:0 0 8px;
     font-family:'Cormorant Garamond', serif;
@@ -614,6 +623,17 @@
   </div>
 </div>
 
+<div class="modal" id="giftIntroModal" aria-hidden="true">
+  <div class="modal-card intro-card" role="dialog" aria-modal="true" aria-labelledby="giftIntroTitle">
+    <h4 id="giftIntroTitle">Solo son ideas</h4>
+    <p>Lo más importante para nosotros es que nos acompañen en este día especial.</p>
+    <p>Lo que sigue es solo una lista de ideas, por si les sirve de inspiración.</p>
+    <div class="modal-actions">
+      <button type="button" class="modal-confirm" id="giftIntroContinue">Ver ideas</button>
+    </div>
+  </div>
+</div>
+
 <div class="modal" id="claimModal" aria-hidden="true">
   <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="claimTitle">
     <h4 id="claimTitle">Reservar regalo</h4>
@@ -633,6 +653,7 @@
 
   const btn = document.getElementById('giftBtn');
   const panel = document.getElementById('giftPanel');
+  const giftIntroModal = document.getElementById('giftIntroModal');
   const giftItems = [...document.querySelectorAll('.gift-item[data-lockable="true"]')];
   const modal = document.getElementById('claimModal');
   const claimName = document.getElementById('claimName');
@@ -676,11 +697,44 @@
     return null;
   }
 
+  function openGiftPanel() {
+    panel.classList.add('open');
+    btn.setAttribute('aria-expanded', 'true');
+    btn.innerHTML = 'Ocultar ideas<br>de regalo';
+    loadClaims();
+  }
+
+  function closeGiftPanel() {
+    panel.classList.remove('open');
+    btn.setAttribute('aria-expanded', 'false');
+    btn.innerHTML = 'Ver ideas<br>de regalo';
+  }
+
+  function openGiftIntro() {
+    giftIntroModal.classList.add('open');
+    giftIntroModal.setAttribute('aria-hidden', 'false');
+  }
+
+  function closeGiftIntro() {
+    giftIntroModal.classList.remove('open');
+    giftIntroModal.setAttribute('aria-hidden', 'true');
+  }
+
   btn.addEventListener('click', () => {
-    const isOpen = panel.classList.toggle('open');
-    btn.setAttribute('aria-expanded', isOpen);
-    btn.innerHTML = isOpen ? 'Ocultar ideas<br>de regalo' : 'Ver ideas<br>de regalo';
-    if (isOpen) loadClaims();
+    if (panel.classList.contains('open')) {
+      closeGiftPanel();
+      return;
+    }
+    openGiftIntro();
+  });
+
+  document.getElementById('giftIntroContinue').addEventListener('click', () => {
+    closeGiftIntro();
+    openGiftPanel();
+  });
+
+  giftIntroModal.addEventListener('click', (e) => {
+    if (e.target === giftIntroModal) closeGiftIntro();
   });
 
   async function loadClaims() {
