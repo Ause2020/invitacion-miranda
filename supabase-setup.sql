@@ -20,3 +20,10 @@ create policy "Public insert gift_claims"
 
 create policy "Public delete gift_claims"
   on public.gift_claims for delete using (true);
+
+-- Los invitados pueden ver si un regalo está reservado, pero no el nombre.
+-- Tú sigues viendo guest_name en Table Editor (rol service_role / dashboard).
+revoke all on table public.gift_claims from anon, authenticated;
+grant select (id, gift_id, claimed_at) on table public.gift_claims to anon, authenticated;
+grant insert (gift_id, guest_name) on table public.gift_claims to anon, authenticated;
+grant delete on table public.gift_claims to anon, authenticated;

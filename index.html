@@ -672,14 +672,14 @@
   const claimName = document.getElementById('claimName');
   const claimText = document.getElementById('claimText');
   let pendingGift = null;
-  // claimsById[baseId] = [{ slotId, guestName }, ...]
+  // claimsById[baseId] = [{ slotId, slot }, ...]
   let claimsById = {};
 
   const headers = {
     apikey: SUPABASE_ANON_KEY,
     Authorization: 'Bearer ' + SUPABASE_ANON_KEY,
     'Content-Type': 'application/json',
-    Prefer: 'return=representation'
+    Prefer: 'return=minimal'
   };
 
   function maxClaims(item) {
@@ -694,12 +694,6 @@
     const m = storedId.match(/^(.*)#(\d+)$/);
     if (m) return { baseId: m[1], slot: parseInt(m[2], 10) };
     return { baseId: storedId, slot: 1 };
-  }
-
-  function formatNames(names) {
-    if (names.length === 1) return names[0];
-    if (names.length === 2) return names[0] + ' y ' + names[1];
-    return names.slice(0, -1).join(', ') + ' y ' + names[names.length - 1];
   }
 
   function nextFreeSlot(baseId, max) {
@@ -752,7 +746,7 @@
 
   async function loadClaims() {
     try {
-      const res = await fetch(SUPABASE_URL + '/rest/v1/gift_claims?select=gift_id,guest_name', { headers });
+      const res = await fetch(SUPABASE_URL + '/rest/v1/gift_claims?select=gift_id', { headers });
       if (!res.ok) throw new Error('No se pudo cargar reservas');
       const rows = await res.json();
       claimsById = {};
@@ -761,8 +755,7 @@
         if (!claimsById[baseId]) claimsById[baseId] = [];
         claimsById[baseId].push({
           slotId: row.gift_id,
-          slot,
-          guestName: row.guest_name || 'Alguien'
+          slot
         });
       });
       Object.keys(claimsById).forEach((id) => {
@@ -782,7 +775,6 @@
       const actions = item.querySelector('.gift-actions');
       let status = item.querySelector('.gift-status');
       const url = item.querySelector('.gift-link')?.href;
-      const names = claims.map((c) => c.guestName);
       const full = claims.length >= max;
 
       if (claims.length > 0) {
@@ -795,9 +787,9 @@
         }
         status.hidden = false;
         if (max > 1 && !full) {
-          status.textContent = 'Reservado por ' + formatNames(names) + ' · queda ' + (max - claims.length);
+          status.textContent = 'Reservado · queda ' + (max - claims.length);
         } else {
-          status.textContent = 'Reservado por ' + formatNames(names);
+          status.textContent = 'Reservado';
         }
         let html = '';
         if (!full) {
@@ -884,7 +876,7 @@
         throw new Error(err.message || 'No se pudo reservar');
       }
       if (!claimsById[baseId]) claimsById[baseId] = [];
-      claimsById[baseId].push({ slotId: giftId, slot, guestName: name });
+      claimsById[baseId].push({ slotId: giftId, slot });
       claimsById[baseId].sort((a, b) => a.slot - b.slot);
       renderClaims();
       closeClaimModal();
